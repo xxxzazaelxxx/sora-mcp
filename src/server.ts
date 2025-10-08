@@ -44,17 +44,6 @@ server.registerTool(
             seconds: z.string().optional().default('4').describe('Clip duration in seconds'),
             size: z.string().optional().default('720x1280').describe('Output resolution formatted as width x height'),
             input_reference: z.string().optional().describe('Optional image or video file path for reference')
-        },
-        outputSchema: {
-            id: z.string(),
-            object: z.string(),
-            model: z.string(),
-            status: z.string(),
-            progress: z.number(),
-            created_at: z.number(),
-            size: z.string(),
-            seconds: z.string(),
-            quality: z.string().optional()
         }
     },
     async ({ prompt, model = 'sora-2', seconds = '4', size = '720x1280', input_reference }) => {
@@ -119,17 +108,6 @@ server.registerTool(
         inputSchema: {
             video_id: z.string().describe('The identifier of the completed video to remix'),
             prompt: z.string().describe('Updated text prompt that directs the remix generation')
-        },
-        outputSchema: {
-            id: z.string(),
-            object: z.string(),
-            model: z.string(),
-            status: z.string(),
-            progress: z.number(),
-            created_at: z.number(),
-            size: z.string(),
-            seconds: z.string(),
-            remixed_from_video_id: z.string().optional()
         }
     },
     async ({ video_id, prompt }) => {
@@ -182,18 +160,6 @@ server.registerTool(
         description: 'Check the status and details of a video generation job',
         inputSchema: {
             video_id: z.string().describe('The identifier of the video to check')
-        },
-        outputSchema: {
-            id: z.string(),
-            object: z.string(),
-            model: z.string(),
-            status: z.string(),
-            progress: z.number(),
-            created_at: z.number(),
-            completed_at: z.number().nullable().optional(),
-            expires_at: z.number().nullable().optional(),
-            size: z.string(),
-            seconds: z.string()
         }
     },
     async ({ video_id }) => {
@@ -246,10 +212,6 @@ server.registerTool(
             limit: z.number().optional().default(20).describe('Number of videos to retrieve'),
             after: z.string().optional().describe('Identifier for pagination - get videos after this ID'),
             order: z.enum(['asc', 'desc']).optional().default('desc').describe('Sort order by timestamp')
-        },
-        outputSchema: {
-            data: z.array(z.record(z.any())),
-            object: z.string()
         }
     },
     async ({ limit = 20, after, order = 'desc' }) => {
@@ -306,13 +268,6 @@ server.registerTool(
         inputSchema: {
             video_id: z.string().describe('The identifier of the video to download'),
             variant: z.string().optional().describe('Which downloadable asset to return (defaults to MP4)')
-        },
-        outputSchema: {
-            video_id: z.string(),
-            status: z.string(),
-            message: z.string(),
-            download_instructions: z.string(),
-            curl_command: z.string()
         }
     },
     async ({ video_id, variant }) => {
@@ -399,12 +354,6 @@ server.registerTool(
             video_id: z.string().describe('The identifier of the video to save'),
             output_path: z.string().optional().describe('Directory to save the video (defaults to Downloads folder)'),
             filename: z.string().optional().describe('Custom filename (defaults to video_id.mp4)')
-        },
-        outputSchema: {
-            video_id: z.string(),
-            status: z.string(),
-            file_path: z.string(),
-            message: z.string()
         }
     },
     async ({ video_id, output_path, filename }) => {
@@ -509,11 +458,6 @@ server.registerTool(
         description: 'Delete a video job and its assets',
         inputSchema: {
             video_id: z.string().describe('The identifier of the video to delete')
-        },
-        outputSchema: {
-            id: z.string(),
-            deleted: z.boolean(),
-            message: z.string()
         }
     },
     async ({ video_id }) => {
