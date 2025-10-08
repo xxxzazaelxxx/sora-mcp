@@ -1,0 +1,32 @@
+{
+  "name": "sora-mcp-server",
+  "version": "1.0.0",
+  "description": "MCP server for OpenAI Sora 2 video generation API",
+  "main": "dist/server.js",
+  "type": "module",
+  "scripts": {
+    "dev": "tsx src/server.ts",
+    "build": "tsc",
+    "start": "node dist/server.js"
+  },
+  "keywords": [
+    "mcp",
+    "sora",
+    "openai",
+    "video-generation"
+  ],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.0.4",
+    "dotenv": "^17.2.3",
+    "express": "^4.21.2",
+    "zod": "^3.23.8"
+  },
+  "devDependencies": {
+    "@types/express": "^5.0.0",
+    "@types/node": "^22.10.5",
+    "tsx": "^4.19.2",
+    "typescript": "^5.7.2"
+  }
+}
