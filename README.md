@@ -18,7 +18,7 @@ A Model Context Protocol (MCP) server that integrates with OpenAI's Sora 2 API f
 
 1. Clone the repository:
 ```bash
-git clone <repository-url>
+git clone https://github.com/yourusername/sora-mcp
 cd sora-mcp
 ```
 
@@ -27,11 +27,16 @@ cd sora-mcp
 npm install
 ```
 
-3. Create a `.env` file with your OpenAI API key:
+3. Build the project:
 ```bash
-OPENAI_API_KEY=sk-your-api-key-here
-PORT=3000
+npm run build
 ```
+
+4. Configure for Claude Desktop:
+   - Copy `claude_desktop_config.example.json` to `~/Library/Application Support/Claude/claude_desktop_config.json`
+   - Update the `args` path to match your installation directory
+   - Add your OpenAI API key to the `OPENAI_API_KEY` field
+   - Optionally set `DOWNLOAD_DIR` to your preferred download folder
 
 ## Server Architecture
 
@@ -93,15 +98,17 @@ It uses the compiled server and passes your API key via environment variables:
   "mcpServers": {
     "sora-server": {
       "command": "node",
-      "args": ["/Users/pietroschirano/code/sora-mcp/dist/stdio-server.js"],
+      "args": ["/ABSOLUTE/PATH/TO/sora-mcp/dist/stdio-server.js"],
       "env": {
-        "OPENAI_API_KEY": "sk-proj-...",
-        "DOWNLOAD_DIR": "/Users/you/Videos/Sora"
+        "OPENAI_API_KEY": "your-openai-api-key-here",
+        "DOWNLOAD_DIR": "/Users/yourname/Downloads/sora"
       }
     }
   }
 }
 ```
+
+See `claude_desktop_config.example.json` for a complete example.
 
 **Environment Variables:**
 - `OPENAI_API_KEY` (required) - Your OpenAI API key

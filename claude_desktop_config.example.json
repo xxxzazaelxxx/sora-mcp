@@ -1,0 +1,15 @@
+{
+  "mcpServers": {
+    "sora-server": {
+      "command": "node",
+      "args": [
+        "/ABSOLUTE/PATH/TO/sora-mcp/dist/stdio-server.js"
+      ],
+      "env": {
+        "OPENAI_API_KEY": "your-openai-api-key-here",
+        "DOWNLOAD_DIR": "/Users/yourname/Downloads"
+      }
+    }
+  }
+}
+

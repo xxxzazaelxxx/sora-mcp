@@ -8,6 +8,9 @@ dist/
 .env
 .env.local
 
+# Claude Desktop config (contains API keys)
+claude_desktop_config.json
+
 # Logs
 *.log
 npm-debug.log*
