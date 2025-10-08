@@ -18,7 +18,7 @@ A Model Context Protocol (MCP) server that integrates with OpenAI's Sora 2 API f
 
 1. Clone the repository:
 ```bash
-git clone https://github.com/yourusername/sora-mcp
+git clone https://github.com/Doriandarko/sora-mcp
 cd sora-mcp
 ```
 
