@@ -1,6 +1,9 @@
 import { McpServer, ResourceTemplate } from '@modelcontextprotocol/sdk/server/mcp.js';
 import { StdioServerTransport } from '@modelcontextprotocol/sdk/server/stdio.js';
 import { z } from 'zod';
+import { writeFile, mkdir } from 'fs/promises';
+import { join, resolve } from 'path';
+import { homedir } from 'os';
 
 // Get API key from environment (passed via Claude Desktop config)
 const OPENAI_API_KEY = process.env.OPENAI_API_KEY;
@@ -8,6 +11,9 @@ if (!OPENAI_API_KEY) {
     console.error('Error: OPENAI_API_KEY environment variable is required');
     process.exit(1);
 }
+
+// Get download directory from env or use default
+const DOWNLOAD_DIR = process.env.DOWNLOAD_DIR || join(homedir(), 'Downloads');
 
 const SORA_API_BASE = 'https://api.openai.com/v1';
 
@@ -373,7 +379,119 @@ server.registerTool(
     }
 );
 
-// Tool 6: Delete Video
+// Tool 6: Save Video
+server.registerTool(
+    'save-video',
+    {
+        title: 'Save Video',
+        description: 'Automatically download and save a completed video to your computer',
+        inputSchema: {
+            video_id: z.string().describe('The identifier of the video to save'),
+            output_path: z.string().optional().describe('Directory to save the video (defaults to Downloads folder)'),
+            filename: z.string().optional().describe('Custom filename (defaults to video_id.mp4)')
+        },
+        outputSchema: {
+            video_id: z.string(),
+            status: z.string(),
+            file_path: z.string(),
+            message: z.string()
+        }
+    },
+    async ({ video_id, output_path, filename }) => {
+        try {
+            // First check if video is completed
+            const statusResponse = await fetch(`${SORA_API_BASE}/videos/${video_id}`, {
+                method: 'GET',
+                headers: {
+                    'Authorization': `Bearer ${OPENAI_API_KEY}`
+                }
+            });
+
+            if (!statusResponse.ok) {
+                const errorText = await statusResponse.text();
+                throw new Error(`Sora API error: ${statusResponse.status} - ${errorText}`);
+            }
+
+            const statusData = await statusResponse.json() as { status: string };
+
+            if (statusData.status !== 'completed') {
+                const output = {
+                    video_id,
+                    status: statusData.status,
+                    file_path: '',
+                    message: `Video is not ready yet. Current status: ${statusData.status}`
+                };
+                return {
+                    content: [
+                        {
+                            type: 'text',
+                            text: JSON.stringify(output, null, 2)
+                        }
+                    ],
+                    structuredContent: output
+                };
+            }
+
+            // Download the video
+            const downloadUrl = `${SORA_API_BASE}/videos/${video_id}/content`;
+            const videoResponse = await fetch(downloadUrl, {
+                method: 'GET',
+                headers: {
+                    'Authorization': `Bearer ${OPENAI_API_KEY}`
+                }
+            });
+
+            if (!videoResponse.ok) {
+                const errorText = await videoResponse.text();
+                throw new Error(`Failed to download video: ${videoResponse.status} - ${errorText}`);
+            }
+
+            // Get video content as buffer
+            const videoBuffer = Buffer.from(await videoResponse.arrayBuffer());
+
+            // Determine save path
+            const saveDir = output_path ? resolve(output_path) : DOWNLOAD_DIR;
+            const saveFilename = filename || `${video_id}.mp4`;
+            const fullPath = join(saveDir, saveFilename);
+
+            // Ensure directory exists
+            await mkdir(saveDir, { recursive: true });
+
+            // Save the file
+            await writeFile(fullPath, videoBuffer);
+
+            const output = {
+                video_id,
+                status: 'saved',
+                file_path: fullPath,
+                message: `Video saved successfully to ${fullPath}`
+            };
+
+            return {
+                content: [
+                    {
+                        type: 'text',
+                        text: `✅ Video downloaded successfully!\n\nSaved to: ${fullPath}\n\nYou can now open and watch your video!`
+                    }
+                ],
+                structuredContent: output
+            };
+        } catch (error: unknown) {
+            const errorMessage = error instanceof Error ? error.message : String(error);
+            return {
+                content: [
+                    {
+                        type: 'text',
+                        text: `Error saving video: ${errorMessage}`
+                    }
+                ],
+                isError: true
+            };
+        }
+    }
+);
+
+// Tool 7: Delete Video
 server.registerTool(
     'delete-video',
     {

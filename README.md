@@ -95,12 +95,17 @@ It uses the compiled server and passes your API key via environment variables:
       "command": "node",
       "args": ["/Users/pietroschirano/code/sora-mcp/dist/stdio-server.js"],
       "env": {
-        "OPENAI_API_KEY": "sk-proj-..."
+        "OPENAI_API_KEY": "sk-proj-...",
+        "DOWNLOAD_DIR": "/Users/you/Videos/Sora"
       }
     }
   }
 }
 ```
+
+**Environment Variables:**
+- `OPENAI_API_KEY` (required) - Your OpenAI API key
+- `DOWNLOAD_DIR` (optional) - Custom download folder (defaults to ~/Downloads)
 
 **To use:**
 1. Restart Claude Desktop (Cmd+Q then relaunch)
@@ -193,7 +198,7 @@ List all your video generation jobs with pagination.
 
 ### download-video
 
-Get the download URL for a completed video.
+Get a curl command to manually download a completed video.
 
 **Parameters:**
 - `video_id` (required): ID of the video to download
@@ -206,7 +211,26 @@ Get the download URL for a completed video.
 }
 ```
 
-**Returns:** Download URL if video is completed, or current status if still processing.
+**Returns:** Ready-to-use curl command with authentication for downloading the video.
+
+### save-video ⭐ (Auto-Download)
+
+Automatically download and save a completed video to your computer.
+
+**Parameters:**
+- `video_id` (required): ID of the video to save
+- `output_path` (optional): Directory to save to (defaults to ~/Downloads)
+- `filename` (optional): Custom filename (defaults to video_id.mp4)
+
+**Example:**
+```javascript
+{
+  "video_id": "video_123",
+  "filename": "my-cat-video.mp4"
+}
+```
+
+**Returns:** File path where video was saved. No manual commands needed!
 
 ### remix-video
 
@@ -250,10 +274,11 @@ Delete a video job and its assets.
    "Check the status of video video_123"
    ```
 
-3. **Download when ready** → Get the video file
+3. **Save when ready** → Auto-download the video file
    ```
-   "Download video video_123"
+   "Save video video_123"
    ```
+   Claude will automatically download it to your Downloads folder!
 
 4. **Clean up** → Delete old videos
    ```
