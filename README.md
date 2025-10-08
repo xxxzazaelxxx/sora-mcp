@@ -142,10 +142,7 @@ code --add-mcp '{"name":"sora-server","type":"http","url":"http://localhost:3000
 
 ### Cursor
 
-Click this deeplink or add manually in settings:
-```
-cursor://anysphere.cursor-deeplink/mcp/install?name=sora-server&config=eyJ1cmwiOiJodHRwOi8vbG9jYWxob3N0OjMwMDAvbWNwIn0%3D
-```
+Add to your Cursor MCP settings with stdio transport (similar to Claude Desktop configuration above).
 
 ## Available Tools
 
