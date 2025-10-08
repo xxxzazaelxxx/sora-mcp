@@ -33,6 +33,26 @@ OPENAI_API_KEY=sk-your-api-key-here
 PORT=3000
 ```
 
+## Server Architecture
+
+This project includes **two server implementations** for different use cases:
+
+### 📱 `stdio-server.ts` - For Claude Desktop
+- **Transport:** stdio (Standard Input/Output)
+- **Use case:** Local process communication
+- **How it works:** Claude Desktop spawns this as a child process
+- **Benefits:** Fast, secure, no network needed
+- **Used by:** Claude Desktop
+
+### 🌐 `server.ts` - For Remote Access
+- **Transport:** HTTP/Streamable HTTP  
+- **Use case:** Remote clients, web-based tools
+- **How it works:** Runs as HTTP server on port 3000
+- **Benefits:** Network accessible, multiple clients
+- **Used by:** MCP Inspector, VS Code, Cursor, browsers
+
+**Why two servers?** Different MCP clients use different transports. This separation keeps the code clean and optimized for each transport type.
+
 ## Usage
 
 ### For Claude Desktop (stdio mode)
@@ -138,6 +158,56 @@ Generate a video from a text prompt.
 }
 ```
 
+### get-video-status
+
+Check the status and progress of a video generation job.
+
+**Parameters:**
+- `video_id` (required): ID of the video to check
+
+**Example:**
+```javascript
+{
+  "video_id": "video_123"
+}
+```
+
+**Returns:** Video status including `progress` (0-100), `status` (queued/processing/completed), and completion timestamps.
+
+### list-videos
+
+List all your video generation jobs with pagination.
+
+**Parameters:**
+- `limit` (optional): Number of videos to retrieve (default: 20)
+- `after` (optional): Pagination cursor - get videos after this ID
+- `order` (optional): Sort order "asc" or "desc" (default: "desc")
+
+**Example:**
+```javascript
+{
+  "limit": 10,
+  "order": "desc"
+}
+```
+
+### download-video
+
+Get the download URL for a completed video.
+
+**Parameters:**
+- `video_id` (required): ID of the video to download
+- `variant` (optional): Which format to download (defaults to MP4)
+
+**Example:**
+```javascript
+{
+  "video_id": "video_123"
+}
+```
+
+**Returns:** Download URL if video is completed, or current status if still processing.
+
 ### remix-video
 
 Create a remix of an existing video with a new prompt.
@@ -154,15 +224,41 @@ Create a remix of an existing video with a new prompt.
 }
 ```
 
-## Available Resources
+### delete-video
 
-### video://{video_id}
+Delete a video job and its assets.
 
-Get the current status and details of a video generation job.
+**Parameters:**
+- `video_id` (required): ID of the video to delete
 
-**Example URI:** `video://video_123`
+**Example:**
+```javascript
+{
+  "video_id": "video_123"
+}
+```
 
-Returns job status, progress, and download URL when complete.
+## Typical Workflow
+
+1. **Create a video** → Get back a `video_id`
+   ```
+   "Create a video of a sunset over mountains"
+   ```
+
+2. **Check status** → Monitor progress
+   ```
+   "Check the status of video video_123"
+   ```
+
+3. **Download when ready** → Get the video file
+   ```
+   "Download video video_123"
+   ```
+
+4. **Clean up** → Delete old videos
+   ```
+   "Delete video video_123"
+   ```
 
 ## API Response Format
 
